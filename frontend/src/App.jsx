@@ -3,6 +3,11 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
+import UploadPage from "./pages/UploadPage";
+<Route path="/upload" element={<UploadPage />} />
+
+
+
 function App() {
   const [count, setCount] = useState(0)
 

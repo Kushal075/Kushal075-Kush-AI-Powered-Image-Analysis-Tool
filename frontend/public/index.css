@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  background: #0a0a0a;
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header */
+header {
+  padding: 50px;
+  background: linear-gradient(45deg, #0f0, #00f);
+  box-shadow: 0 0 20px #0f0;
+}
+
+h1 {
+  font-size: 2.5em;
+  text-shadow: 0 0 10px #0f0;
+}
+
+/* Button */
+button {
+  padding: 15px 30px;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  background: #0f0;
+  color: #000;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #ff0;
+  box-shadow: 0 0 10px #ff0;
+}
+
+/* Features Section */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+/* Footer */
+footer {
+  padding: 20px;
+  background: #222;
+  margin-top: 50px;
+}

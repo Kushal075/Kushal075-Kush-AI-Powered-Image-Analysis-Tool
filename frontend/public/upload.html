@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image</title>
+    <link rel="stylesheet" href="upload.css"> <!-- ✅ No "../" since upload.css is in public/ -->
+</head>
+<body>
+    <div class="container">
+        <h2>Upload Your Image</h2>
+        <div id="drop-area" class="drop-area">
+            <p>Drag & drop an image here or click to select</p>
+            <input type="file" id="file-input" hidden>
+            <label for="file-input" class="upload-btn">Select File</label>
+        </div>
+        <p id="file-name"></p>
+        <button id="analyze-btn" class="analyze-btn">Analyze Image</button> <!-- ✅ Analyze Button -->
+        <button id="export-btn" class="export-btn" disabled>Export Report</button> <!-- ✅ Export Button (Initially Disabled) -->
+        <p id="result"></p>
+    </div>
+    <script src="../js/upload.js"></script> <!-- ✅ Corrected path for upload.js -->
+</body>
+</html>

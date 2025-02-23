@@ -1,46 +1,40 @@
-import torch
-import torchvision.models as models
-import torchvision.transforms as transforms
-from PIL import Image
+import tensorflow as tf
+import numpy as np
+import cv2
+import os
 
-class MedicalModel:
-    def __init__(self, device=None):
-        # Use GPU if available, otherwise fallback to CPU
-        self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
+# Load the pre-trained model (adjust filename if needed)
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "brain_tumor_model.h5")
+model = tf.keras.models.load_model(MODEL_PATH)
 
-        # Load a pre-trained model (ResNet18)
-        self.model = models.resnet18(pretrained=True).to(self.device)
-        self.model.eval()  # Set model to evaluation mode
+# Class labels (adjust if needed)
+CLASS_LABELS = ["No Tumor", "Tumor Detected"]
 
-        # Define the transformation for input images
-        self.transform = transforms.Compose([
-            transforms.Resize((224, 224)),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-        ])
+def preprocess_image(image_path):
+    """
+    Preprocesses an image for the brain tumor model.
+    - Resizes to (224, 224) (adjust if needed)
+    - Converts to array and normalizes
+    """
+    img = cv2.imread(image_path)
+    img = cv2.resize(img, (224, 224))  # Ensure the model input size is correct
+    img = img / 255.0  # Normalize pixel values
+    img = np.expand_dims(img, axis=0)  # Add batch dimension
+    return img
 
-        # Sample labels (modify as needed)
-        self.class_labels = ["Class 0", "Class 1", "Class 2"]  # Example labels
-
-    def predict(self, image_path):
-        """
-        Predict the class of the input image.
-        :param image_path: Path to the image file
-        :return: Predicted class label
-        """
-        try:
-            # Load and transform the image
-            image = Image.open(image_path).convert("RGB")
-            image = self.transform(image).unsqueeze(0).to(self.device)
-
-            # Get predictions
-            with torch.no_grad():
-                output = self.model(image)
-            _, predicted = torch.max(output, 1)
-
-            # Return class label if available, else return index
-            return self.class_labels[predicted.item()] if predicted.item() < len(self.class_labels) else f"Class {predicted.item()}"
-
-        except Exception as e:
-            print(f"Error processing image: {e}")
-            return None
+def predict_brain_tumor(image_path):
+    """
+    Predicts whether the image contains a brain tumor.
+    Returns:
+    - Predicted class (Tumor / No Tumor)
+    - Confidence score
+    """
+    img = preprocess_image(image_path)
+    prediction = model.predict(img)[0]  # Get the first (and only) prediction
+    class_idx = np.argmax(prediction)  # Get the highest probability class
+    confidence = float(prediction[class_idx]) * 100  # Convert to percentage
+    
+    return {
+        "prediction": CLASS_LABELS[class_idx],
+        "confidence": confidence
+    }

@@ -1,0 +1,80 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container */
+.container {
+    width: 50%;
+    margin: 50px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Drop Area */
+.drop-area {
+    border: 2px dashed #3498db;
+    padding: 30px;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.drop-area p {
+    font-size: 16px;
+    color: #666;
+}
+
+.drop-area.drag-over {
+    background-color: #ecf0f1;
+    border-color: #2980b9;
+}
+
+/* Upload Button */
+.upload-btn {
+    display: inline-block;
+    background: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.upload-btn:hover {
+    background: #2980b9;
+}
+
+/* Export Button */
+.export-btn {
+    display: inline-block;
+    background: #27ae60;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-size: 14px;
+    border: none;
+    transition: 0.3s;
+}
+
+.export-btn:hover {
+    background: #219150;
+}
+
+/* File name & results */
+#file-name, #result {
+    font-size: 14px;
+    color: #555;
+    margin-top: 10px;
+}
