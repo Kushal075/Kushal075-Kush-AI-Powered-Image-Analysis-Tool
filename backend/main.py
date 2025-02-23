@@ -3,13 +3,13 @@ from flask_cors import CORS
 import sys
 import os
 
-# Ensure backend directory is in Python path
-backend_path = os.path.abspath(os.path.dirname(__file__))
-if backend_path not in sys.path:
-    sys.path.append(backend_path)
+# Get the absolute path of the project root (one level above backend)
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if project_root not in sys.path:
+    sys.path.append(project_root)
 
 try:
-    from processing.medical_routes import medical_bp  # ✅ Importing medical routes
+    from backend.processing.medical_routes import medical_bp  # ✅ Importing medical routes
 except ModuleNotFoundError as e:
     print(f"❌ Module import error: {e}")
     print("⚠️ Ensure all required files exist and are correctly placed.")
@@ -22,4 +22,4 @@ CORS(app)  # Enable Cross-Origin Resource Sharing
 app.register_blueprint(medical_bp, url_prefix="/medical")
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5000)  # ✅ Accessible in local network
+    app.run(debug=True, host="0.0.0.0", port=5000)  # ✅ Accessible in local network  
